@@ -1,0 +1,34 @@
+version: '3'
+services:
+
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.docker
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - php-fpm
+    ports:
+      - "8888:80"
+
+  php-fpm:
+    build:
+      context: ./docker
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./:/var/www/html
+#    depends_on:
+#      - mariadb
+
+#  mariadb:
+#    build: ./docker/mariadb/
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: password-NONE
+#      MYSQL_DATABASE: stores
+#    ports:
+#      - '3366:3306'
+#    volumes:
+#      - ./docker/mariadb:/var/lib/mysql
+#      - ./:/var/www/html

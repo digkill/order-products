@@ -1,0 +1,23 @@
+# Основываемся на контейнере версии 7.2-fpm
+FROM php:7.2-fpm
+
+# Устанавливаем необходимые для расширений пакеты 
+RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libmagickwand-dev \
+        libmagickcore-dev \pdo_mysql
+        libpng-dev \
+        libxslt1-dev \
+        zip unzip \
+        --no-install-recommends
+
+# Устанавливаем расширения intl, PDO MySQL, bcmath, xsl, zip, mysqli, soap
+RUN pecl channel-update pecl.php.net \
+    && docker-php-ext-install intl pdo_mysql bcmath xsl zip mysqli soap \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install pcntl && docker-php-ext-enable pcntl \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
