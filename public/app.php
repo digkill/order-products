@@ -40,6 +40,10 @@ $routes = $aura->getMap();
 $routes->get('home', '/', App\Http\Action\HomeAction::class);
 $routes->get('product.list', '/product/list', App\Http\Action\Product\ListAction::class);
 $routes->get('product.generate', '/product/generate', App\Http\Action\Product\GenerateAction::class);
+$routes->get('order.create', '/order/create/products/{products}', App\Http\Action\Order\CreateAction::class);
+$routes->get('order.pay', '/order/pay/order/{orderId}/amount/{amount}', App\Http\Action\Order\PayAction::class);
+$routes->post('order.create-post', '/order/create/products/{products}', App\Http\Action\Order\CreateAction::class);
+$routes->post('order.pay-post', '/order/create/order/{orderId}/amount/{amount}', App\Http\Action\Order\PayAction::class);
 
 $matcher = $aura->getMatcher();
 $request = ServerRequestFactory::fromGlobals();

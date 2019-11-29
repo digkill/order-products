@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Http\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Http\Repository\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -26,9 +26,9 @@ class Order
     private $id;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(type="string", nullable=false, columnDefinition="ENUM('NEW', 'PAID')")
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $status;
 
@@ -68,19 +68,19 @@ class Order
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getStatus(): string
+    public function getStatus(): int
     {
-        return $this->status;
+        return  $this->status;
     }
 
     /**
-     * @param string $status
+     * @param int $status
      *
      * @return self
      */
-    public function setStatus(string $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 

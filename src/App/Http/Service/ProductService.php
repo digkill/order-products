@@ -9,10 +9,15 @@ use Doctrine\ORM\ORMException;
 class ProductService
 {
 
-    public function list($ids): array
+    public function list($ids = null): array
     {
         $productRepository = entityManager()->getRepository(Product::class);
-        $result = $productRepository->productsByIds($ids);
+
+        if ($ids) {
+            $result = $productRepository->productsByIds($ids);
+        } else {
+            $result = $productRepository->productsAll();
+        }
 
         $data = [];
         foreach ($result as $item) {
@@ -21,7 +26,7 @@ class ProductService
         return $data;
     }
 
-    public function generate($count = 20)
+    public function generate($count = 20): bool
     {
 
         $em = entityManager();
@@ -32,6 +37,7 @@ class ProductService
             $product->setPrice(number_format(random_int(100, 1000), 2, '.', ''));
             try {
                 $em->persist($product);
+                return true;
             } catch (ORMException $e) {
                 var_dump($e->getMessage());
             }

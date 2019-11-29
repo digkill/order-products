@@ -18,17 +18,17 @@ services:
       dockerfile: php-fpm.docker
     volumes:
       - ./:/var/www/html
-#    depends_on:
-#      - mariadb
+    depends_on:
+      - mariadb
 
-#  mariadb:
-#    build: ./docker/mariadb/
-#    restart: always
-#    environment:
-#      MYSQL_ROOT_PASSWORD: password-NONE
-#      MYSQL_DATABASE: stores
-#    ports:
-#      - '3366:3306'
-#    volumes:
-#      - ./docker/mariadb:/var/lib/mysql
-#      - ./:/var/www/html
+  mariadb:
+    build: ./docker/mariadb/
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'store'
+      MYSQL_ROOT_PASSWORD: 'password-NONE'
+    ports:
+      - '3366:3306'
+    volumes:
+      - ./docker/mariadb:/var/lib/mysql
+      - ./:/var/www/html
