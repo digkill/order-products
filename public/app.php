@@ -56,8 +56,9 @@ try {
 
         $callable = $resolver->resolve($route->handler);
         $response = $callable($request);
+    } else {
+        $response = new JsonResponse(['Not Found'], 404);
     }
-    $response = new JsonResponse(['Not Found'], 404);
 
 } catch (\Exception $e) {
     $response = new JsonResponse(['error' => $e->getMessage()], 404);
