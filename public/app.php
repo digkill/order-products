@@ -1,9 +1,5 @@
 <?php
 
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
@@ -52,12 +48,17 @@ $resolver = new ActionResolver();
 
 try {
     $route = $matcher->match($request);
-    foreach ($route->attributes as $key => $val) {
-        $request = $request->withAttribute($key, $val);
-    }
 
-    $callable = $resolver->resolve($route->handler);
-    $response = $callable($request);
+    if ($route) {
+        foreach ($route->attributes as $key => $val) {
+            $request = $request->withAttribute($key, $val);
+        }
+
+        $callable = $resolver->resolve($route->handler);
+        $response = $callable($request);
+    }
+    $response = new JsonResponse(['Not Found'], 404);
+
 } catch (\Exception $e) {
     $response = new JsonResponse(['error' => $e->getMessage()], 404);
 }
