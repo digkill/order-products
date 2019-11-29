@@ -1,10 +1,10 @@
-Тестовое задание
+Тестовое задание Action-Domain-Responder — приложение
 
 ## Запуск
 - docker-compose -up --build
 - composer install
 - cp .env.dist .env -- настроить
-phinx -- настроить
+phinx.yml -- настроить
 ## Запустить миграции
 - vendor/bin/phinx migrate -e production  
 ## Сгенерировать товары (Все в GET, для удобства проверить в браузере)
